@@ -47,15 +47,21 @@ def plot_loss(d_losses, g_losses, num_epochs, save=False, save_dir='results/', s
         plt.close()
 
 
-def plot_test_result(input, target, gen_image, epoch, training=True, save=False, save_dir='results/', show=False, fig_size=(5, 5)):
-    if not training:
-        fig_size = (input.size(2) * 3 / 100, input.size(3)/100)
+def plot_test_result(input, target, gen_image, epoch, training=True, save=False, save_dir='results/', show=False, fig_size=(5, 5), is_frames=False):
+    if is_frames:
+        if not training:
+            fig_size = (input[0].size(2) * 3 / 100, input[0].size(3)/100)
+        imgs = [input[0], input[1], gen_image, target]
+    else:
+        if not training:
+            fig_size = (input.size(2) * 3 / 100, input.size(3)/100)
+        imgs = [input, gen_image, target]
 
     fig, axes = plt.subplots(1, 3, figsize=fig_size)
-    imgs = [input, gen_image, target]
+    
     for ax, img in zip(axes.flatten(), imgs):
         ax.axis('off')
-        ax.set_adjustable('box-forced')
+        ax.set_adjustable('box')
         # Scale to 0-255
         img = (((img[0] - img[0].min()) * 255) / (img[0].max() - img[0].min())).numpy().transpose(1, 2, 0).astype(np.uint8)
         ax.imshow(img, cmap=None, aspect='equal')
