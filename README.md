@@ -1,3 +1,5 @@
+Added modifications described in [Frame Interpolation Using Generative Adversarial Networks](http://vision.stanford.edu/teaching/cs231n/reports/2017/pdfs/317.pdf) for frame interpolation
+
 # pix2pix
 PyTorch implementation of Image-to-Image Translation with Conditional Adversarial Nets (pix2pix)
 
